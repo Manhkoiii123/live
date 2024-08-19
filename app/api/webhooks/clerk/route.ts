@@ -1,74 +1,3 @@
-# local tunnal
-
-khi mà deploy với test ở local thì là 2 url khác nhau
-=> fake 1 cái url bằng ngrok
-
-sau khi đã kết nối với tài khoản thì nó có 1 cái key trên web này
-
-https://dashboard.ngrok.com/get-started/setup/windows (1)
-
-chạy dự án bằng npm run dev
-
-sau đó vào cái terminal của ngork (tải về giải nén ở ổ D)
-
-chạy terminal đó lên và chạy câu lệnh `ngrok http 3000`
-
-fake được 1 cái url
-
-vào trong (1) => thấy có cái menu chứa cái domain => đang có cái domain đuang dùng
-chọn cái start tunnal => copy câu lệnh trên đó chạy trên terminla của ngrok
-
-`ngrok http --domain=positive-moth-infinite.ngrok-free.app 3000  `
-
-# Webhooks with clerk
-
-docs
-`https://clerk.com/docs/integrations/webhooks/sync-data`
-
-vào dark board chọn webhooks => add endpoind
-
-thêm cái này vào endpUrl `https://positive-moth-infinite.ngrok-free.app/api/webhooks/clerk`
-
-đến cái subcribe to event chọn cái user => create update delete => chọn create
-
-có cái `Signing Secret` => copy dán vào env
-
-```TS
-WEBHOOK_SECRET="whsec_t7rJ1uD3WumAhK2aygIIyh28lO3VVv9C"
-```
-
-làm theo docs ở đầu trang
-
-sau khi đến cái đoạn copy code tại file route.ts => ok
-
-sửa cái middleware.ts
-
-```ts
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-const isPublicRoute = createRouteMatcher([
-  "/sign-in(.*)",
-  "/sign-up(.*)",
-  "/api/webhooks(.*)",
-]);
-export default clerkMiddleware((auth, request) => {
-  if (!isPublicRoute(request)) {
-    auth().protect();
-  }
-});
-
-export const config = {
-  matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    // Always run for API routes
-    "/(api|trpc)(.*)",
-  ],
-};
-```
-
-file /api/webhooks/clerk/route.ts
-
-```ts
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
@@ -160,4 +89,3 @@ export async function POST(req: Request) {
   }
   return new Response("", { status: 200 });
 }
-```
