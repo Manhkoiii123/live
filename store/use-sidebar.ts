@@ -5,7 +5,7 @@ interface SidebarStore {
   onCollapse: () => void;
 }
 export const useSidebar = create<SidebarStore>((set) => ({
-  collapsed: false,
+  collapsed: true,
   onExpand: () => set({ collapsed: false }),
   onCollapse: () => set({ collapsed: true }),
 }));
