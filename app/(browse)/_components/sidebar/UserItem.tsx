@@ -26,7 +26,7 @@ const UserItem = ({ imageUrl, username, isLive }: UserItemProps) => {
       className={cn(
         "w-full h-12 bg-[#333747] hover:bg-[#333747] hover:bg-opacity-85 hover:text-inherit",
         collapsed ? "justify-center" : "justify-start",
-        isActive && "bg-accent"
+        isActive && "bg-[#333747] "
       )}
     >
       <Link href={href}>
