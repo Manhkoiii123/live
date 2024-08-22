@@ -1,4 +1,5 @@
 import { Actions } from "@/app/(browse)/[username]/_components/actions";
+import { isBlockedByUser } from "@/lib/block-service";
 import { isFollowingUser } from "@/lib/follow-service";
 import { getUserByUsername } from "@/lib/user-service";
 import { notFound } from "next/navigation";
@@ -14,12 +15,17 @@ const UserPage = async ({ params: { username } }: UserPageprops) => {
     notFound();
   }
   const isFollowing = await isFollowingUser(user.id);
+  const isBlockByThisUser = await isBlockedByUser(user.id);
   return (
     <div className="text-white flex flex-col gap-y-4">
       <p>{username}</p>
       <p>{user.id}</p>
       <p>is following : {`${isFollowing}`}</p>
-      <Actions userId={user.id} isFollowing={isFollowing} />
+      <Actions
+        userId={user.id}
+        isFollowing={isFollowing}
+        isBlockByThisUser={isBlockByThisUser}
+      />
     </div>
   );
 };
