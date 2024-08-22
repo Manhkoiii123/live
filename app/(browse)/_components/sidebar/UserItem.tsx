@@ -24,9 +24,9 @@ const UserItem = ({ imageUrl, username, isLive }: UserItemProps) => {
       asChild
       variant={"ghost"}
       className={cn(
-        "w-full h-12 bg-[#333747] hover:bg-[#333747] hover:bg-opacity-85 hover:text-inherit",
+        "w-full h-12  hover:bg-[#333747] hover:bg-opacity-85 hover:text-inherit",
         collapsed ? "justify-center" : "justify-start",
-        isActive && "bg-[#333747] "
+        isActive && "bg-[#333747]"
       )}
     >
       <Link href={href}>
