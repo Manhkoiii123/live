@@ -8,7 +8,6 @@ export const createViewerToken = async (hostIdentity: string) => {
   let seft;
   try {
     seft = await getSeft();
-    console.log(seft);
   } catch (error) {
     const id = v4();
     const username = `guest#${Math.floor(Math.random() * 1000)}`;

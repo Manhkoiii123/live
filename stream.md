@@ -280,3 +280,5 @@ export async function POST(req: Request) {
 ```
 
 khi dó ng A stream thì cái icon của ng A sẽ là cái đang live
+
+# video component
