@@ -3,9 +3,11 @@ import UserItem, {
   UserItemSkeleton,
 } from "@/app/(browse)/_components/sidebar/UserItem";
 import { useSidebar } from "@/store/use-sidebar";
-import { User } from "@prisma/client";
+import { Stream, User } from "@prisma/client";
 interface RecommendedProps {
-  data: User[];
+  data: (User & {
+    stream: Stream | null;
+  })[];
 }
 const Recommended = ({ data }: RecommendedProps) => {
   const { collapsed } = useSidebar((state) => state);
@@ -23,7 +25,7 @@ const Recommended = ({ data }: RecommendedProps) => {
             key={user.id}
             username={user.username}
             imageUrl={user.imageUrl}
-            isLive={false}
+            isLive={user.stream?.isLive}
           />
         ))}
       </ul>
