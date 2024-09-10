@@ -218,3 +218,63 @@ const ConnectModal = () => {
 
 export default ConnectModal;
 ```
+
+# OBS crash course
+
+copy cái server url bên cái màn generate code => dán vào tabs bên obs (setting => stream => server)
+
+# livekit webhook
+
+chạy lên bằng `ngrok` => vào ổ D => ngrok => chạy cái exe của nó lên =>
+`ngrok http --domain=positive-moth-infinite.ngrok-free.app 3000` chạy lệnh này
+
+vào livekit.io => try => setting => webhooks => add new endpint
+
+điền `name:development`
+
+url : là cái url đang chạy thực tế `https://positive-moth-infinite.ngrok-free.app/api/webhooks/livekit`
+
+=> create
+
+vào code tạo file `D:\00_nextJs\project\live\app\api\webhooks\livekit\route.ts`
+
+```ts
+import { headers } from "next/headers";
+import { WebhookReceiver } from "livekit-server-sdk";
+import { db } from "@/lib/db";
+const receiver = new WebhookReceiver(
+  process.env.LIVEKIT_API_KEY!,
+  process.env.LIVEKIT_API_SECRET!
+);
+export async function POST(req: Request) {
+  const body = await req.text();
+  const headerPayload = headers();
+  const authorization = headerPayload.get("Authorization");
+  if (!authorization) {
+    return new Response("No authorization header", { status: 400 });
+  }
+  const event = receiver.receive(body, authorization);
+  if ((await event).event === "ingress_started") {
+    await db.stream.update({
+      where: {
+        ingressId: (await event).ingressInfo?.ingressId,
+      },
+      data: {
+        isLive: true,
+      },
+    });
+  }
+  if ((await event).event === "ingress_ended") {
+    await db.stream.update({
+      where: {
+        ingressId: (await event).ingressInfo?.ingressId,
+      },
+      data: {
+        isLive: false,
+      },
+    });
+  }
+}
+```
+
+khi dó ng A stream thì cái icon của ng A sẽ là cái đang live
