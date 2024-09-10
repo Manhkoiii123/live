@@ -9,7 +9,7 @@ import { Follow, Stream, User } from "@prisma/client";
 interface FollowingProps {
   data: (Follow & {
     following: User & {
-      stream: Stream | null;
+      stream: { isLive: boolean } | null;
     };
   })[];
 }
