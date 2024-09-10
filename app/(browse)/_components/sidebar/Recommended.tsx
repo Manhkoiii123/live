@@ -6,7 +6,7 @@ import { useSidebar } from "@/store/use-sidebar";
 import { Stream, User } from "@prisma/client";
 interface RecommendedProps {
   data: (User & {
-    stream: Stream | null;
+    stream: { isLive: boolean } | null;
   })[];
 }
 const Recommended = ({ data }: RecommendedProps) => {
