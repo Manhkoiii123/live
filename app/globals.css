@@ -8,6 +8,13 @@ body,
   height: 100%;
   @apply bg-neutral-900/80;
 }
+.hidden-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hidden-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 @layer base {
   :root {
     --background: 0 0% 100%;
