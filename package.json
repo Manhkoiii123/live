@@ -23,6 +23,7 @@
     "@types/uuid": "^10.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "jwt-decode": "^4.0.0",
     "livekit-client": "^2.5.0",
     "livekit-server-sdk": "^2.6.1",
