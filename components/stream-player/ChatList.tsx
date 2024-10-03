@@ -1,5 +1,6 @@
 "use client";
 import ChatMessage from "@/components/stream-player/ChatMessage";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ReceivedChatMessage } from "@livekit/components-react";
 import React from "react";
 interface ChatListProps {
@@ -26,3 +27,10 @@ const ChatList = ({ isHidden, messages }: ChatListProps) => {
 };
 
 export default ChatList;
+export const ChatListSkeleton = () => {
+  return (
+    <div className="flex items-center h0full justify-center">
+      <Skeleton className="w-1/2 h-6" />
+    </div>
+  );
+};
