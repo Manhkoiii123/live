@@ -9,6 +9,9 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    domains: ["utfs.io"],
+  },
 };
 
 export default nextConfig;
