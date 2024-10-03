@@ -21,7 +21,7 @@ const ChatMessage = ({ data }: ChatMessageProps) => {
               color: color,
             }}
           >
-            {data.from?.name}
+            {data.from?.name}:
           </span>
         </p>
         <p className="text-sm break-all">{data.message}</p>
