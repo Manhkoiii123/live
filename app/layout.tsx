@@ -24,7 +24,7 @@ export default function RootLayout({
       }}
     >
       <html lang="en">
-        <body className={inter.className}>
+        <body className={`${inter.className} text-white`}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

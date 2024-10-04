@@ -5,6 +5,9 @@ export const getStreamByUserId = async (userId: string) => {
     where: {
       userId,
     },
+    include: {
+      user: true,
+    },
   });
-  return stream
+  return stream;
 };

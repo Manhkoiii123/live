@@ -6,6 +6,7 @@ const receiver = new WebhookReceiver(
   process.env.LIVEKIT_API_KEY!,
   process.env.LIVEKIT_API_SECRET!
 );
+// lấy link live qua người dùng (vì link live sẽ là /u/${username}) => stream có cái stream.user.username => emit cái này về là ok
 export async function POST(req: Request) {
   const body = await req.text();
   const headerPayload = headers();
