@@ -1,5 +1,6 @@
 "use client";
 
+import ChatCommunity from "@/components/stream-player/ChatCommunity";
 import ChatForm from "@/components/stream-player/ChatForm";
 import ChatHeader from "@/components/stream-player/ChatHeader";
 import ChatList from "@/components/stream-player/ChatList";
@@ -75,9 +76,11 @@ const Chat = ({
         </>
       )}
       {variant === ChatVariant.COMMUNITY && (
-        <>
-          <p>Community Mode</p>
-        </>
+        <ChatCommunity
+          viewerName={viewerName}
+          hostName={hostName}
+          isHidden={isHidden}
+        />
       )}
     </div>
   );
